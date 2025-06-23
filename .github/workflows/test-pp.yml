@@ -1,0 +1,36 @@
+name: Test Forge App
+
+on:
+  push:
+    branches:
+      - '**' # This matches all branches
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Setup Forge CLI
+        run: |
+          npm install -g @forge/cli
+          forge settings set usage-analytics true
+
+      - name: Lint
+        env:
+          FORGE_EMAIL: ${{ secrets.FORGE_EMAIL }}
+          FORGE_API_TOKEN: ${{ secrets.FORGE_API_TOKEN }}
+        run: |
+          npm run lint
+          forge lint
