@@ -1,0 +1,21 @@
+modules:
+  jira:issuePanel:
+    - key: comp3900-test-app-hello-world-issue-panel
+      resource: main
+      resolver:
+        function: resolver
+      render: native
+      title: comp3900-test-app
+      icon: https://developer.atlassian.com/platform/forge/images/icons/issue-panel-icon.svg
+  function:
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: main
+    path: src/frontend/index.jsx
+app:
+  runtime:
+    name: nodejs22.x
+    memoryMB: 256
+    architecture: arm64
+  id: ari:cloud:ecosystem::app/3887718c-9fbb-41f5-8fd6-a9734ac3fee4
